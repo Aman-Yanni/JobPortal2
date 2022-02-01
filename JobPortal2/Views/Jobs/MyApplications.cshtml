@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNet.Identity
+@using JobPortal2.Models
+@model IEnumerable<JobPortal2.Models.Applicants>
+
+@{
+    ViewBag.Title = "My Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Applications / @Html.ActionLink("Open Jobs", "Index") / @Html.ActionLink("My Jobs", "MyJobs")</h2>
+
+@{ 
+    List<Job> jobs = ViewBag.jobs;
+    
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.jobId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        Job job = jobs.Find(row => row.JobID == item.jobId.JobID);
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.date)
+    </td>
+    <td>
+        @Html.ActionLink(job.Position + " @ " +job.Company, "Details",new { id = job.JobID })
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.status)
+    </td>
+</tr>
+        
+    }
+
+</table>

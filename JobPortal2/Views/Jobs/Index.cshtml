@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<JobPortal2.Models.Job>
+
+@{
+    ViewBag.Title = "Jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Open Jobs / @Html.ActionLink("My Jobs", "MyJobs") / @Html.ActionLink("My Applications", "MyApplications")</h2> 
+
+
+<ul class="list-group">
+
+    @foreach (var item in Model)
+    {
+
+           <li class="list-group-item">
+               @{Html.RenderPartial("OpenJobsPartial", item);}
+           </li>
+    }
+
+</ul>

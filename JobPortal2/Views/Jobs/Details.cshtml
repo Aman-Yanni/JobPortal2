@@ -1,0 +1,131 @@
+﻿@using JobPortal2.Models
+@model JobPortal2.Models.Job
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Job</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Experience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.degree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.degree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @{
+        List<Applicants> applicants = ViewBag.applicants;
+        List<ApplicationUser> users = ViewBag.users;
+        if (Model.UserID.Id == ViewBag.user.Id)
+        {
+            <table class="table">
+                    <tr>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Applicant name
+                        </th>
+                        <th>
+                            Applicant email
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th></th>
+                    </tr>
+                
+        @foreach (var item in applicants)
+        {
+
+            ApplicationUser user = users.Find(row => row.Id == item.userId.Id);
+
+            <tr>
+                <td>
+                    @item.date
+                </td>
+                <td>
+                    @Html.ActionLink(user.UserName, "Details","Manage", new { id = user.Id }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(user.Email, "Details", "Manage", new {id=user.Id},null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @if (item.status != Status.Accepted) { @Html.ActionLink("Accept", "Accept", new { id = item.ApplicationId })} |
+                    @if (item.status != Status.Accepted) {@Html.ActionLink("Accept and Close", "AcceptAndClose", new { id = item.ApplicationId })} |
+                    @if (item.status != Status.Rejected) {@Html.ActionLink("Reject", "Reject", new { id = item.ApplicationId })}
+                </td>
+            </tr>
+
+
+                    }
+
+        </table>
+        }
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JobID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
