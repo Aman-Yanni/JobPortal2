@@ -325,7 +325,13 @@ namespace JobPortal2.Controllers
 
         public ActionResult Edit()
         {
-            return View();
+            ApplicationUser applicationUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var currentUser = db.Users.Find(applicationUser.Id);
+            EditUserViewModel model = new EditUserViewModel();
+            model.degree = currentUser.degree;
+            model.experience = currentUser.experience;
+            model.field = currentUser.field;
+                return View(model);
         }
 
         [HttpPost]
