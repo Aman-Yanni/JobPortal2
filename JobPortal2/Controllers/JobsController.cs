@@ -76,11 +76,19 @@ namespace JobPortal2.Controllers
             {
                 ApplicationUser applicationUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 var currentUser = db.Users.Find(applicationUser.Id);
-                job.UserID = currentUser;
-                job.Active = true;
-                db.Job.Add(job);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                bool updated = currentUser.degree != 0 && currentUser.experience != 0 && currentUser.field != 0;
+                if (updated)
+                {
+                    job.UserID = currentUser;
+                    job.Active = true;
+                    db.Job.Add(job);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Edit", "Manage");
+                }
             }
 
             return View(job);

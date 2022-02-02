@@ -1,31 +1,88 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "Home Page";
 }
-
+@{ 
+    var user = User.Identity.IsAuthenticated;
+}
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Job Portal</h1>
+    <p class="lead">A place for all your employment needs. Connecting workers and companies and streamlining the process.</p>
+    <p>
+        @if (user)
+        {
+            @Html.ActionLink("Start Now>>", "Index", "Jobs", null, new { @class = "btn btn-primary btn-lg" })
+        }
+        else
+        {
+            @Html.ActionLink("Start Now>>", "Login", "Account", null, new { @class = "btn btn-primary btn-lg" })
+        }
+    </p>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
+    <div class="col-md-3">
+        <h2>Create Job Posts</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Create a job opening post with the nessecary details for other to apply and manage the list of open jobs.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><p>
+    @if (user)
+    {
+        @Html.ActionLink("Start Now>>", "Create", "Jobs", null, new { @class = "btn btn btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("Start Now>>", "Login", "Account", null, new { @class = "btn btn btn-default" })
+    }
+</p></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="col-md-3">
+        <h2>Update Your Qualifications</h2>
+        <p>
+            Update your qualifications for a better chance at being hired over the competition.
+        </p>
+        <p><p>
+    @if (user)
+    {
+        @Html.ActionLink("Start Now>>", "Edit", "Manage", null, new { @class = "btn btn btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("Start Now>>", "Login", "Account", null, new { @class = "btn btn btn-default" })
+    }
+</p></p>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-3">
+        <h2>Apply For Jobs</h2>
+        <p>
+            Apply for the jobs you want and check for the requirements and check on the status of your applicaiton.
+        </p>
+        <p><p>
+    @if (user)
+    {
+        @Html.ActionLink("Start Now>>", "Index", "Jobs", null, new { @class = "btn btn btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("Start Now>>", "Login", "Account", null, new { @class = "btn btn btn-default" })
+    }
+</p></p>
+    </div>
+    <div class="col-md-3">
+        <h2>Screen Out Applicants</h2>
+        <p>
+            Choose from a list of applicants, view qualifications and  Accept or Reject.
+        </p>
+        <p><p>
+    @if (user)
+    {
+        @Html.ActionLink("Start Now>>", "MyJobs", "Jobs", null, new { @class = "btn btn btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("Start Now>>", "Login", "Account", null, new { @class = "btn btn btn-default" })
+    }
+</p></p>
     </div>
 </div>
